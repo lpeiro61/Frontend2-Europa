@@ -4,8 +4,9 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 	<title>Puls4: Comunidad para gente atractiva y millonaria</title>
-	<!-- <link rel="stylesheet" href="css/normalize.css" /> -->
+	<link rel="stylesheet" href="css/normalize.css" />
 	<link rel="stylesheet" href="css/puls4.css" />
+	<script src="js/jquery-2.1.0.min.js"></script>
 </head>
 <body>
 	<header>
@@ -14,7 +15,7 @@
 		</div>
 		<div class="titular">
 			<h1 class="titulo">
-				Puls4: Comunidad profesional de gente atractiva
+				Puls4: Comunidad profesional de gente cool
 			</h1>
 			<div>
 				<a href="#" class="filtro">
@@ -23,6 +24,11 @@
 				<a href="#" class="publicar">
 					Publicar
 				</a>
+			</div>
+			<div>
+				<a href="#14" class="sizer">A</a>
+				<a href="#16" class="sizer">A</a>
+				<a href="#18" class="sizer">A</a>
 			</div>
 		</div>
 		<div class="usuario">
@@ -42,6 +48,21 @@
 			<li><a href="#">Django</a></li>
 		</ul>
 	</nav>
+	<form action="">
+		<p>
+			<label for="titulo">Título</label>
+			<input id="titulo" type="text" name="titulo" placeholder="Ingrese el título..." />
+		</p>
+		<p>
+			<label for="autor">Autor</label>
+			<input id="autor" type="text" name="autor" placeholder="Ingrese el autor..." />
+		</p>
+		<p>
+			<label for="tag">Tag</label>
+			<input id="tag" type="text" name="tag" placeholder="Ingrese el tag..." />
+		</p>
+		<input type="submit" value="Publicar" />
+	</form>
 	<section class="posts">
 		<article class="post">
 			<div class="descripcion">
@@ -64,7 +85,7 @@
 			<div class="acciones">
 				<div class="votos">
 					<a href="#" class="up"></a>
-					<span class="total">155</span>
+					<span class="total">156</span>
 					<a href="#" class="down"></a>
 				</div>
 				<div class="datos">
@@ -97,7 +118,7 @@
 			<div class="acciones">
 				<div class="votos">
 					<a href="#" class="up"></a>
-					<span class="total">155</span>
+					<span class="total">156</span>
 					<a href="#" class="down"></a>
 				</div>
 				<div class="datos">
@@ -130,7 +151,7 @@
 			<div class="acciones">
 				<div class="votos">
 					<a href="#" class="up"></a>
-					<span class="total">155</span>
+					<span class="total">156</span>
 					<a href="#" class="down"></a>
 				</div>
 				<div class="datos">
@@ -163,7 +184,7 @@
 			<div class="acciones">
 				<div class="votos">
 					<a href="#" class="up"></a>
-					<span class="total">155</span>
+					<span class="total">156</span>
 					<a href="#" class="down"></a>
 				</div>
 				<div class="datos">
@@ -196,7 +217,7 @@
 			<div class="acciones">
 				<div class="votos">
 					<a href="#" class="up"></a>
-					<span class="total">155</span>
+					<span class="total">156</span>
 					<a href="#" class="down"></a>
 				</div>
 				<div class="datos">
@@ -229,7 +250,7 @@
 			<div class="acciones">
 				<div class="votos">
 					<a href="#" class="up"></a>
-					<span class="total">155</span>
+					<span class="total">156</span>
 					<a href="#" class="down"></a>
 				</div>
 				<div class="datos">
@@ -252,6 +273,161 @@
 			</span>
 		</h3>
 	</footer>
+
+	<script>
+
+	$(function(){
+		$('.publicar').on('click', mostrarForm);
+
+		function mostrarForm() {
+			$('form').slideToggle();
+		}
+
+		$('form').on('submit', procesarForm);
+
+		function procesarForm(ev) {
+			ev.preventDefault();
+			var titulo = $('input[name=titulo]').val();
+			var autor = $('input[name=autor]').val();
+			var tag = $('input[name=tag]').val();
+
+			var template = '<article class="post"> \
+				<div class="descripcion"> \
+					<figure class="imagen"> \
+						<img src="img/foto.jpg" /> \
+					</figure> \
+					<div class="detalles"> \
+						<h2 class="titulo"> \
+							'+titulo+' \
+						</h2> \
+						<p class="autor"> \
+							por <a href="#">'+autor+'</a> \
+						</p> \
+						<a href="#" class="tag">'+tag+'</a> \
+						<p class="fecha">hace \
+							 <strong>0</strong> min \
+						</p> \
+					</div> \
+				</div> \
+				<div class="acciones"> \
+					<div class="votos"> \
+						<a href="#" class="up"></a> \
+						<span class="total">0</span> \
+						<a href="#" class="down"></a> \
+					</div> \
+					<div class="datos"> \
+						<a href="#" class="comentarios"> \
+							0 \
+						</a> \
+						<a href="#" class="estrellita"> \
+						</a> \
+					</div> \
+				</div> \
+			</article>';
+
+			// $('.posts').prepend(template); // Esto se puede mejorar visualmente:
+			$('.posts').prepend($(template).fadeIn(function(){
+				$(this).css('display','inline-block');
+				// A .posts se cambia el display por que fadeIn por defecto hace que el elemento sea display: block; por lo que el post añadido ocuparía todo el ancho de la ventana.
+			}));
+			$('input[type=text]').val('');
+			$('form').slideUp();
+		}
+
+		/* -----------CLOSURES------------*/
+			  /* Fabricando funciones */
+
+		function crearSizer(pixeles) {
+			return function() {
+				$('body').css('font-size', pixeles+'px');
+			}
+		}
+
+		$('.sizer').each(function(i, link){
+			var pixeles = $(link).prop('hash').substring(1);
+			$(link)
+				.css('font-size', pixeles+'px')
+				.on('click', crearSizer(pixeles));
+		});
+
+
+					/* Ocultar código */
+
+		function crearContador(valorInicial) {
+			var contador = valorInicial || 0;
+			return {
+				up : function() {
+					return ++contador;
+				},
+				down : function() {
+					return --contador;
+				}
+			};
+		};
+
+		$('.total').each(function(i, elem){
+			var contTotal = crearContador(elem.innerHTML);
+			$(elem)
+				.siblings('.up')
+					.on('click', function(ev){
+						ev.preventDefault();
+						$(elem).html(contTotal.up());
+					})
+				.siblings('.down')
+					.on('click', function(ev){
+						ev.preventDefault();
+						$(elem).html(contTotal.down());
+					});
+		});
+	});
+
+
+
+
+
+
+
+	/* TIPS
+		function darBienvenida() {
+			alert('Este botón te servirá para crear posts.');
+		}
+
+		function hacerAlgoImportante() {
+			console.log("Estoy haciendo algo importante.");
+		}
+
+		$(window)
+			.on('load',darBienvenida)
+			.on('load',hacerAlgoImportante);
+		En evento $('window').on('load') sólo se dispara (se ejecuta) cuando ya se ha descargado todo desde el servidor: html, css, imágenes, otros js, etc. y la página se ha cargado.
+
+		------------------------------
+
+		$(document).on('ready', function(){
+
+		});
+		De esta manera se disparan los eventos una vez se haya leído el html y se haya creado el dom, sin esperar las imágenes, y otros componentes de la página. Se llama DOMContentLoaded
+		Esto es lo mismo que:
+		$(function(){
+
+		});
+
+		$(function(){
+
+			$('.publicar')
+				.on('click',darBienvenida)
+				.on('click', function(){
+					console.log('Me hicieron click');
+				});
+
+			$(window)
+				.on('load', hacerAlgoImportante);
+
+				$('.publicar').off('click', darBienvenida);
+		});
+
+	*/
+	</script>
 </body>
 </html>
 
